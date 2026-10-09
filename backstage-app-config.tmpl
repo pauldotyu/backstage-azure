@@ -1,0 +1,26 @@
+auth:
+  environment: development
+  providers:
+    microsoft:
+      development:
+        clientId: ${AZURE_CLIENT_ID}
+        clientSecret: ${AZURE_CLIENT_SECRET}
+        tenantId: ${AZURE_TENANT_ID}
+        domainHint: ${AZURE_TENANT_ID}
+        signIn:
+          resolvers:
+            - resolver: emailMatchingUserEntityAnnotation
+catalog:
+  providers:
+    microsoftGraphOrg:
+      default:
+        tenantId: ${AZURE_TENANT_ID}
+        clientId: ${AZURE_CLIENT_ID}
+        clientSecret: ${AZURE_CLIENT_SECRET}
+        userGroupMember:
+          filter: id eq '${AZURE_GROUP_ID}'
+        group:
+          filter: id eq '${AZURE_GROUP_ID}'
+        schedule:
+          frequency: { minutes: 30 }
+          timeout: { minutes: 3 }
